@@ -1,4 +1,4 @@
-LocalList App
+LocalList
 
 # ANGULAR 2
 
