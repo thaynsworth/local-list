@@ -1,0 +1,172 @@
+<div class="col-xs-4">
+  <form #informationForm="ngForm" (ngSubmit)="onSubmit(informationForm.value)">
+    <div class="row">
+      <div class="col-xs-6">
+        <div class="form-group">
+          <label for="first-name">First name</label>
+          <input name="firstName"
+                 id="first-name"
+                 class="form-control"
+                 type="text"
+                 [readonly]="readonly"
+                 required
+                 [(ngModel)]="user.firstName"
+          >
+        </div>
+      </div>
+      <div class="col-xs-6">
+        <div class="form-group">
+          <label for="last-name">Last name</label>
+          <input name="lastName"
+                 id="last-name"
+                 class="form-control"
+                 type="text"
+                 [readonly]="readonly"
+                 required
+                 [(ngModel)]="user.lastName"
+          >
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="form-group">
+          <label for="street">Street address</label>
+          <input name="streetAddress"
+                 id="street"
+                 class="form-control"
+                 type="text"
+                 [readonly]="readonly"
+                 maxlength="255"
+                 [(ngModel)]="user.address"
+          >
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="form-group">
+          <label for="suite">Suite, C/O...</label>
+          <input name="suite"
+                 id="suite"
+                 class="form-control"
+                 type="text"
+                 [readonly]="readonly"
+                 [(ngModel)]="user.addressAdditional"
+          >
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-6">
+        <div class="form-group">
+          <label for="city">City</label>
+          <input name="city"
+                 id="city"
+                 class="form-control"
+                 type="text"
+                 [readonly]="readonly"
+                 [(ngModel)]="user.city"
+          >
+        </div>
+      </div>
+      <div class="col-xs-6">
+        <div class="form-group">
+          <label for="postal-code">Postal code</label>
+          <input name="postalCode"
+                 id="postal-code"
+                 class="form-control"
+                 type="text"
+                 [readonly]="readonly"
+                 [(ngModel)]="user.postalCode"
+          >
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-6">
+        <label for="postal-code">State</label>
+        <div class="form-group input-group">
+          <input name="region"
+                 class="form-control"
+                 type="text"
+                 [readonly]="readonly"
+                 [disabled]="disabled"
+                 [(ngModel)]="user.regionName"
+          >
+          <div class="input-group-btn">
+            <button type="button"
+                    class="btn btn-default dropdown-toggle"
+                    [class.disabled]="disabled"
+                    [style.visibility]="readonly ? 'hidden' : 'visible'"
+                    data-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false">
+              &nbsp;<span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-right">
+              <li *ngFor="let state of states">
+                <a (click)="selectedState(state.name, state.code)">{{ state.name }}</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-6">
+        <label for="postal-code">Country</label>
+        <div class="form-group input-group">
+          <input name="country"
+                 class="form-control"
+                 type="text"
+                 [readonly]="readonly"
+                 [(ngModel)]="user.countryName"
+          >
+          <div class="input-group-btn">
+            <button type="button"
+                    class="btn btn-default dropdown-toggle"
+                    [style.visibility]="readonly ? 'hidden' : 'visible'"
+                    data-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false">
+              &nbsp;<span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-right">
+              <li *ngFor="let country of countries">
+                <a (click)="getStates(country.value, country.name)">{{ country.name }}</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="form-group">
+          <label for="phone">Phone</label>
+          <input name="phone"
+                 id="phone"
+                 class="form-control"
+                 type="text"
+                 [readonly]="readonly"
+                 [(ngModel)]="user.phone"
+          >
+        </div>
+      </div>
+    </div>
+    <div class="button-wrapper">
+      <button type="button"
+              class="btn btn-primary citia-btn-secondary pull-left"
+              (click)="readonly = !readonly">
+        {{ readonly ? 'Edit' : 'Cancel' }}
+      </button>
+      <button type="submit"
+              [style.display]="readonly ? 'none' : 'block'"
+              [disabled]="!informationForm.form.valid || informationForm.form.pristine"
+              class="btn btn-primary citia-btn-primary pull-left">
+        Update
+      </button>
+    </div>
+  </form>
+</div>
+
+<notifications-message [notification]="notification"></notifications-message>
